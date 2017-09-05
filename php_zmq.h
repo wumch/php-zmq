@@ -47,4 +47,6 @@
 extern zend_module_entry zmq_module_entry;
 #define phpext_zmq_ptr &zmq_module_entry
 
+PHP_MSHUTDOWN_FUNCTION(zmq);
+
 #endif /* _PHP_ZMQ_H_ */

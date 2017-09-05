@@ -66,6 +66,26 @@ static zend_object_handlers zmq_auth_object_handlers;
 
 #include "zmq_object_access.c"
 
+
+static int php_zmq_destroy_persist_context()
+{
+	EG(persistent_list);
+	return SUCCESS;
+}
+
+static int php_zmq_destroy_persist_socket()
+{
+	return SUCCESS;
+}
+
+PHP_MSHUTDOWN_FUNCTION(zmq)
+{
+	if (php_zmq_destroy_persist_socket() == SUCCESS && php_zmq_destroy_persist_context() == SUCCESS) {
+		return SUCCESS;
+	}
+	return FAILURE;
+}
+
 zend_class_entry *php_zmq_context_exception_sc_entry_get ()
 {
 	return php_zmq_context_exception_sc_entry;
